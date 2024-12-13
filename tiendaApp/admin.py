@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Categoria, Producto, Imagen, Afiliado
+from .models import Categoria, Producto, Imagen, Afiliado, Marca, Talla
 import uuid
 from admin_interface.models import Theme
 
@@ -69,3 +69,13 @@ class ProductoAdmin(admin.ModelAdmin):
     list_filter = ('categorias',)
     inlines = [ImagenInline]
     # Ya no es necesario usar filter_horizontal
+
+@admin.register(Marca)
+class MarcaAdmin(admin.ModelAdmin):
+    list_display = ('marca',)
+    search_fields = ('marca',)
+
+@admin.register(Talla)
+class TallaAdmin(admin.ModelAdmin):
+    list_display = ('talla',)
+    search_fields = ('talla',)

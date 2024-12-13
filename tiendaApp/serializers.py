@@ -1,10 +1,20 @@
 from rest_framework import serializers
-from .models import Categoria, Producto, Imagen, Afiliado
+from .models import Categoria, Producto, Imagen, Afiliado, Marca, Talla
 
 class AfiliadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Afiliado
         fields = ['idafiliado', 'nombre', 'codigo']
+
+class MarcaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Marca
+        fields = ['idmarca', 'marca']
+
+class TallaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Talla
+        fields = ['idtalla', 'talla']
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:

@@ -8,6 +8,20 @@ class Afiliado(models.Model):
     codigo = models.CharField(max_length=8, unique=True)
     def __str__(self):
         return self.nombre
+    
+class Marca(models.Model):
+    idmarca = models.AutoField(primary_key=True)
+    marca = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.marca
+    
+class Talla(models.Model):
+    idtalla = models.AutoField(primary_key=True)
+    talla = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.talla
 
 class Categoria(models.Model):
     idcategoria = models.AutoField(primary_key=True)
@@ -23,6 +37,8 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=255, null=True, blank=True)
     precio = models.FloatField()
     cantidad = models.IntegerField()
+    marca = models.ForeignKey(Marca, on_delete=models.SET_NULL, null=True, blank=True)
+    talla = models.ManyToManyField(Talla, related_name="productos", blank=True)
 
     def __str__(self):
         return self.nombre
