@@ -28,6 +28,8 @@ class ImagenSerializer(serializers.ModelSerializer):
 
 class ProductoSerializer(serializers.ModelSerializer):
     categorias = CategoriaSerializer(many=True)
+    talla = TallaSerializer(many=True)
+    marca = MarcaSerializer()
     imagenes = ImagenSerializer(many=True, read_only=True)
 
     class Meta:
@@ -39,7 +41,9 @@ class ProductoSerializer(serializers.ModelSerializer):
             'descripcion',
             'precio',
             'cantidad',
-            'imagenes'
+            'imagenes',
+            'marca',
+            'talla'
         ]
 
     def create(self, validated_data):
