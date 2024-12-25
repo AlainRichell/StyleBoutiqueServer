@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Categoria, Producto, Imagen, Afiliado, Marca, Talla
+from .models import Categoria, Producto, Imagen, Afiliado, Marca, Talla, ImagenCategoria
 import uuid
 from admin_interface.models import Theme
 
@@ -43,13 +43,12 @@ class AfiliadoAdmin(admin.ModelAdmin):
                 return codigo
 
 
-@admin.register(Categoria)
-class CategoriaAdmin(admin.ModelAdmin):
-    list_display = ('categoria',)
-    search_fields = ('categoria',)
-
 class ImagenInline(admin.TabularInline):
     model = Imagen
+    extra = 1
+
+class ImagenCategoriaInline(admin.TabularInline):
+    model = ImagenCategoria
     extra = 1
 
 class ProductoAdminForm(forms.ModelForm):
@@ -60,6 +59,12 @@ class ProductoAdminForm(forms.ModelForm):
             'categorias': forms.SelectMultiple(),  # Cambia el widget a SelectMultiple
             'colores': forms.SelectMultiple(),     # Cambia el widget a SelectMultiple
         }
+
+@admin.register(Categoria)
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ('categoria',)
+    search_fields = ('categoria',)
+    inlines = [ImagenCategoriaInline]
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):

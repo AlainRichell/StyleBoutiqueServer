@@ -71,3 +71,26 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     if instance.imagen:
         if os.path.isfile(instance.imagen.path):
             os.remove(instance.imagen.path)
+
+class ImagenCategoria(models.Model):
+    idcategoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name="imagenes")
+    imagen = models.ImageField(upload_to='categorias/')
+
+    def __str__(self):
+        return f"Imagen de {self.idcategoria.categoria}"
+
+    def delete(self, *args, **kwargs):
+        # Borra el archivo de la imagen cuando se elimine la instancia de Imagen
+        if self.imagen:
+            if os.path.isfile(self.imagen.path):
+                os.remove(self.imagen.path)
+        super().delete(*args, **kwargs)
+
+@receiver(models.signals.post_delete, sender=ImagenCategoria)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Borra el archivo del sistema cuando se elimina una instancia de Imagen.
+    """
+    if instance.imagen:
+        if os.path.isfile(instance.imagen.path):
+            os.remove(instance.imagen.path)

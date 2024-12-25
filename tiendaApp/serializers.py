@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Categoria, Producto, Imagen, Afiliado, Marca, Talla
+from .models import Categoria, Producto, Imagen, Afiliado, Marca, Talla, ImagenCategoria
 
 class AfiliadoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,6 +25,11 @@ class ImagenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Imagen
         fields = ['idproducto', 'imagen']
+
+class ImagenCategoriaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImagenCategoria
+        fields = ['idcategoria', 'categoria']
 
 class ProductoSerializer(serializers.ModelSerializer):
     categorias = CategoriaSerializer(many=True)

@@ -2,8 +2,8 @@ from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import action
-from .models import Categoria, Producto, Imagen, Afiliado, Marca, Talla
-from .serializers import CategoriaSerializer, ProductoSerializer, ImagenSerializer, AfiliadoSerializer, MarcaSerializer, TallaSerializer
+from .models import Categoria, Producto, Imagen, Afiliado, Marca, Talla, ImagenCategoria
+from .serializers import CategoriaSerializer, ProductoSerializer, ImagenSerializer, AfiliadoSerializer, MarcaSerializer, TallaSerializer, ImagenCategoriaSerializer
 
 class MarcaViewSet(viewsets.ModelViewSet):
     queryset = Marca.objects.all()
@@ -58,3 +58,7 @@ class ProductoViewSet(viewsets.ModelViewSet):
 class ImagenViewSet(viewsets.ModelViewSet):
     queryset = Imagen.objects.all()
     serializer_class = ImagenSerializer
+
+class ImagenCategoriaViewSet(viewsets.ModelViewSet):
+    queryset = ImagenCategoria.objects.all()
+    serializer_class = ImagenCategoriaSerializer
