@@ -16,11 +16,6 @@ class TallaSerializer(serializers.ModelSerializer):
         model = Talla
         fields = ['idtalla', 'talla']
 
-class CategoriaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Categoria
-        fields = ['idcategoria', 'categoria']
-
 class ImagenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Imagen
@@ -29,7 +24,14 @@ class ImagenSerializer(serializers.ModelSerializer):
 class ImagenCategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImagenCategoria
-        fields = ['idcategoria', 'categoria']
+        fields = ['idcategoria', 'imagen']
+
+class CategoriaSerializer(serializers.ModelSerializer):
+    imagenes = ImagenCategoriaSerializer(many=True, read_only=True)
+    class Meta:
+        model = Categoria
+        fields = ['idcategoria', 'categoria', 'imagenes']
+        
 
 class ProductoSerializer(serializers.ModelSerializer):
     categorias = CategoriaSerializer(many=True)
